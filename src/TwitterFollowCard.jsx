@@ -1,8 +1,21 @@
-export function TwitterFollowCard({ userName, name, isFollowing }) {//la base de la reutilización de los componentes son los PARÁMETROS
+import { useState } from "react" //use state es un ARRAY
+
+export function TwitterFollowCard({ userName, name}) {//la base de la reutilización de los componentes son los PARÁMETROS
     // export function TwitterFollowCard({ formatUserName, userName, name, isFollowing }) {//aqui mostramos la exportación del format username
     //<span className='tw-followCard-infoUserName'>{formatUserName(userName)}</span>
+    const [isFollowing, setIsFollowing] = useState(false) //primera posición tiene el valor y el segundo la forma de actualizar
+    // const isFollowing = state[0]
+    // const setIsFollowing = state[1]
 
     console.log(isFollowing)
+    const text = isFollowing ? 'Siguiendo' : 'Seguir' //esto es la estructura de un if pero reducido, lo mismo es if(isFollowing){text = 'siguiendo}else{text='SEguir'}
+    const buttonClassName = isFollowing  //aquí tenemos otra función. Si está siguiendo tiene un estilo y si no, tiene el estilo normal.
+    ? 'tw-followCard-button is-following'
+    : 'tw-followCard-button'
+
+    const handleClick = () => {  //esta función le da la vuelta al valor isFollowing. Si es true lo convierte en false y viceversa.
+        setIsFollowing(!isFollowing) 
+    }
 
     return (
         //utilizamos className, no id(pues no sería reutilizable) Class es una palabra reservada en React y no puede usarse
@@ -20,8 +33,8 @@ export function TwitterFollowCard({ userName, name, isFollowing }) {//la base de
             </header>
 
             <aside>
-                <button className='tw-followCard-button'>
-                    Seguir
+                <button className={buttonClassName} onClick={handleClick}>
+                    {text}
                 </button>
             </aside>
         </article>
@@ -29,4 +42,4 @@ export function TwitterFollowCard({ userName, name, isFollowing }) {//la base de
 }
 
 
-//Seguir (linea 24) es el children de button.
+//{text{}} es el children de button.
